@@ -3,10 +3,7 @@ package ru.learning.managerapp.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.learning.managerapp.controller.payload.NewProductPayload;
 import ru.learning.managerapp.entity.Product;
 import ru.learning.managerapp.service.ProductService;
@@ -14,7 +11,7 @@ import ru.learning.managerapp.service.ProductService;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/catalogue/products")
-public class ProductsController {
+public class ProductsController {       // Занимается обработкой списка товаров
 
     private final ProductService productService;
 
@@ -33,11 +30,5 @@ public class ProductsController {
     public String createProduct(NewProductPayload payload) {
         Product product = productService.createProduct(payload.title(), payload.details());
         return "redirect:/catalogue/products/%d".formatted(product.getId());
-    }
-
-    @GetMapping("{productId:\\d+}")
-    public String getProduct(@PathVariable("productId") int productId, Model model) {
-        model.addAttribute("product", productService.findProduct(productId).orElseThrow());
-        return "catalogue/products/product";
     }
 }

@@ -6,6 +6,7 @@ import ru.learning.managerapp.entity.Product;
 import ru.learning.managerapp.repository.ProductRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,16 @@ public class DefaultProductService implements ProductService {
     @Override
     public Optional<Product> findProduct(int productId) {
         return productRepository.findById(productId);
+    }
+
+    @Override
+    public void updateProduct(Integer id, String title, String details) {
+        productRepository.findById(id)
+                .ifPresentOrElse(product -> {
+                    product.setTitle(title);
+                    product.setDetails(details);
+                }, () -> {
+                    throw new NoSuchElementException();
+                });
     }
 }
