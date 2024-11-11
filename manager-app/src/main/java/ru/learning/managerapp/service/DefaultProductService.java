@@ -6,6 +6,7 @@ import ru.learning.managerapp.entity.Product;
 import ru.learning.managerapp.repository.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,5 +17,15 @@ public class DefaultProductService implements ProductService {
     @Override
     public List<Product> findAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public void createProduct(String title, String details) {
+        productRepository.save(new Product(null, title, details));
+    }
+
+    @Override
+    public Optional<Product> findProduct(int productId) {
+        return productRepository.findById(productId);
     }
 }
