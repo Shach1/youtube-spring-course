@@ -9,7 +9,7 @@ public interface ProductService {
 
     List<Product> findAllProducts();
 
-    void createProduct(String title, String details);
+    Product createProduct(String title, String details);
 
     Optional<Product> findProduct(int productId);
 }

@@ -20,8 +20,8 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public void createProduct(String title, String details) {
-        productRepository.save(new Product(null, title, details));
+    public Product createProduct(String title, String details) {
+        return productRepository.save(new Product(null, title, details));
     }
 
     @Override

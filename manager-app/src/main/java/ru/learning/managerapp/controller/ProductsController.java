@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.learning.managerapp.controller.payload.NewProductPayload;
+import ru.learning.managerapp.entity.Product;
 import ru.learning.managerapp.service.ProductService;
 
 @Controller
@@ -30,8 +31,8 @@ public class ProductsController {
 
     @PostMapping("create")
     public String createProduct(NewProductPayload payload) {
-        productService.createProduct(payload.title(), payload.details());
-        return "redirect:/catalogue/products/list";
+        Product product = productService.createProduct(payload.title(), payload.details());
+        return "redirect:/catalogue/products/%d".formatted(product.getId());
     }
 
     @GetMapping("{productId:\\d+}")

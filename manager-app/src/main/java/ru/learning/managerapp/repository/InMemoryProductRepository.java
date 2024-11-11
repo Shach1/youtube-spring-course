@@ -26,7 +26,7 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public void save(Product product) {
+    public Product save(Product product) {
         product.setId(
                 products.stream()
                         .map(Product::getId)
@@ -34,6 +34,7 @@ public class InMemoryProductRepository implements ProductRepository {
                         .orElse(0) + 1
         );
         products.add(product);
+        return product;
     }
 
     @Override
