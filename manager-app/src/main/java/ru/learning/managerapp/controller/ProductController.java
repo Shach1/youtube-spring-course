@@ -37,4 +37,10 @@ public class ProductController {     // Занимается обработко�
         productService.updateProduct(product.getId(), payload.title(), payload.details());
         return "redirect:/catalogue/products/%d".formatted(product.getId());
     }
+
+    @PostMapping("delete")
+    public String deleteProduct(@ModelAttribute("product") Product product){
+        productService.deleteProduct(product.getId());
+        return "redirect:/catalogue/products/list";
+    }
 }
